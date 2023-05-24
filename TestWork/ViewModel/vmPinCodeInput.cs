@@ -62,9 +62,10 @@ namespace TestWork.ViewModel
                 MessageBox.Show("Неправильный пинкод");
             }
 
-            if (FailedPinCodeEntry == 3)
+            if (FailedPinCodeEntry >= 3)
             {
                 Parent.db.BlockingCard(Account.CardNumber);
+                Account.StatusAccounts = StatusAccount.Blocked;
                 MessageBox.Show("Ваша карта заблокирована");
             }
         }
@@ -73,8 +74,7 @@ namespace TestWork.ViewModel
         {
             bool @return = false;
 
-            if (!string.IsNullOrEmpty(_pinCode) 
-                && FailedPinCodeEntry < 3 
+            if (!string.IsNullOrEmpty(_pinCode)
                 && Account.StatusAccounts != StatusAccount.Blocked)
                 @return = true;
 
